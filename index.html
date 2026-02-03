@@ -12,26 +12,47 @@ html, body {
     background: #000;
     font-family: Arial, sans-serif;
     color: #fff;
+    overflow-x: hidden;
 }
 
-/* Контейнер */
+/* Canvas фон */
+#spaceCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Контент поверх */
 .stack {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     gap: 18px;
     padding: 14px;
 }
 
-/* Блок сторінки */
+/* Космічний glow */
 .block {
-    background: #070707;
+    background: rgba(5,10,15,0.75);
+    backdrop-filter: blur(6px);
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(0,255,255,0.15);
-    border: 1px solid rgba(0,255,255,0.2);
+    border: 1px solid rgba(0,255,255,0.25);
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.15),
+        inset 0 0 25px rgba(0,255,255,0.05);
+    transition: 0.4s;
 }
 
-/* Заголовок */
+.block:hover {
+    box-shadow:
+        0 0 40px rgba(0,255,255,0.35),
+        inset 0 0 35px rgba(0,255,255,0.12);
+}
+
+/* Header */
 .header {
     padding: 10px;
     font-size: 14px;
@@ -49,7 +70,7 @@ html, body {
     background: #000;
 }
 
-/* Кнопка fallback */
+/* Кнопка */
 .open-btn {
     display: block;
     text-align: center;
@@ -62,10 +83,10 @@ html, body {
 }
 
 .open-btn:hover {
-    background: rgba(0,255,255,0.1);
+    background: rgba(0,255,255,0.12);
 }
 
-/* Мобільна оптимізація */
+/* Mobile */
 @media (max-width: 700px) {
     .frame {
         height: 60vh;
@@ -76,48 +97,90 @@ html, body {
 
 <body>
 
+<canvas id="spaceCanvas"></canvas>
+
 <div class="stack">
 
-    <!-- 1 -->
     <div class="block">
         <div class="header">TIME MEMORY</div>
-        <iframe class="frame"
-            src="https://lavandaaudit.github.io/time.memory/">
-        </iframe>
-        <a class="open-btn"
-           href="https://lavandaaudit.github.io/time.memory/"
-           target="_blank">
-           ВІДКРИТИ ОКРЕМО →
-        </a>
+        <iframe class="frame" src="https://lavandaaudit.github.io/time.memory/"></iframe>
+        <a class="open-btn" href="https://lavandaaudit.github.io/time.memory/" target="_blank">ВІДКРИТИ →</a>
     </div>
 
-    <!-- 2 -->
     <div class="block">
-        <div class="header">ART MEMORY IBONARIUM (GITHUB)</div>
-        <iframe class="frame"
-            src="https://github.com/lavandaaudit/art.memory.ibonarium">
-        </iframe>
-        <a class="open-btn"
-           href="https://github.com/lavandaaudit/art.memory.ibonarium"
-           target="_blank">
-           ВІДКРИТИ НА GITHUB →
-        </a>
+        <div class="header">ART MEMORY IBONARIUM</div>
+        <iframe class="frame" src="https://github.com/lavandaaudit/art.memory.ibonarium"></iframe>
+        <a class="open-btn" href="https://github.com/lavandaaudit/art.memory.ibonarium" target="_blank">ВІДКРИТИ →</a>
     </div>
 
-    <!-- 3 -->
     <div class="block">
         <div class="header">IBONARIUM LIBRARY</div>
-        <iframe class="frame"
-            src="https://lavandaaudit.github.io/library/">
-        </iframe>
-        <a class="open-btn"
-           href="https://lavandaaudit.github.io/library/"
-           target="_blank">
-           ВІДКРИТИ ОКРЕМО →
-        </a>
+        <iframe class="frame" src="https://lavandaaudit.github.io/library/"></iframe>
+        <a class="open-btn" href="https://lavandaaudit.github.io/library/" target="_blank">ВІДКРИТИ →</a>
     </div>
 
 </div>
+
+<script>
+const canvas = document.getElementById("spaceCanvas");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+let particles = [];
+
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+/* Particle class */
+class Particle {
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2;
+        this.speedY = 0.1 + Math.random() * 0.4;
+        this.alpha = Math.random();
+    }
+
+    update() {
+        this.y += this.speedY;
+        if (this.y > h) this.reset();
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0,255,255," + this.alpha + ")";
+        ctx.fill();
+    }
+}
+
+/* Create particles */
+for (let i = 0; i < 120; i++) {
+    particles.push(new Particle());
+}
+
+function animate() {
+    ctx.fillStyle = "rgba(0,0,20,0.35)";
+    ctx.fillRect(0, 0, w, h);
+
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 
 </body>
 </html>
