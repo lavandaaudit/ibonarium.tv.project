@@ -3,51 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IBONARIUM · 3 MEMORY PAGES</title>
+<title>STACK</title>
 
 <style>
 html, body {
     margin: 0;
     padding: 0;
     background: #000;
-    font-family: Arial, sans-serif;
-    color: #fff;
 }
 
-/* Основний контейнер */
-.wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Секція */
-.section {
-    width: 100%;
-    border-bottom: 1px solid rgba(0,255,255,0.2);
-}
-
-/* Заголовок */
-.title {
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
-    letter-spacing: 2px;
-    background: #050b12;
-}
-
-/* iframe */
-.frame {
+iframe {
     width: 100%;
     height: 100vh;
     border: none;
-    background: #000;
+    display: block;
 }
 
-/* Mobile оптимізація */
 @media (max-width: 768px) {
-    .frame {
-        height: 85vh;
+    iframe {
+        height: 90vh;
     }
 }
 </style>
@@ -55,33 +29,11 @@ html, body {
 
 <body>
 
-<div class="wrapper">
+<iframe src="https://lavandaaudit.github.io/time.memory/"></iframe>
 
-    <!-- 1 -->
-    <div class="section">
-        <div class="title">TIME MEMORY</div>
-        <iframe class="frame"
-            src="https://lavandaaudit.github.io/time.memory/">
-        </iframe>
-    </div>
+<iframe src="https://github.com/lavandaaudit/art.memory.ibonarium"></iframe>
 
-    <!-- 2 -->
-    <div class="section">
-        <div class="title">ART MEMORY IBONARIUM</div>
-        <iframe class="frame"
-            src="https://github.com/lavandaaudit/art.memory.ibonarium">
-        </iframe>
-    </div>
-
-    <!-- 3 -->
-    <div class="section">
-        <div class="title">IBONARIUM LIBRARY</div>
-        <iframe class="frame"
-            src="https://lavandaaudit.github.io/library/">
-        </iframe>
-    </div>
-
-</div>
+<iframe src="https://lavandaaudit.github.io/library/"></iframe>
 
 </body>
 </html>
