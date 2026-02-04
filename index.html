@@ -11,41 +11,25 @@ html, body {
     padding: 0;
     background: #000;
     font-family: Arial, sans-serif;
-    height: 100%;
-    overflow-y: scroll;
 }
 
-/* Глобальний контейнер */
+/* Один потік */
 .stack {
     width: 100%;
-    height: 100%;
-    scroll-snap-type: y mandatory;
 }
 
-/* Секції */
+/* Блок сторінки */
 .page-block {
     width: 100%;
-    height: 100vh;
-    scroll-snap-align: start;
     position: relative;
 }
 
 /* iframe */
 .page-block iframe {
     width: 100%;
-    height: 100%;
+    height: 200vh; /* Можеш збільшити до 250-300vh якщо треба */
     border: none;
     display: block;
-}
-
-/* Підписи існують, але невидимі */
-.label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
 }
 </style>
 </head>
@@ -54,18 +38,18 @@ html, body {
 
 <div class="stack">
 
+    <!-- TIME MEMORY -->
     <div class="page-block">
-        <div class="label">TIME MEMORY</div>
         <iframe src="https://lavandaaudit.github.io/time.memory/"></iframe>
     </div>
 
+    <!-- ART MEMORY -->
     <div class="page-block">
-        <div class="label">ART MEMORY IBONARIUM</div>
         <iframe src="https://lavandaaudit.github.io/art.memory.ibonarium/"></iframe>
     </div>
 
+    <!-- LIBRARY -->
     <div class="page-block">
-        <div class="label">LIBRARY</div>
         <iframe src="https://lavandaaudit.github.io/library/"></iframe>
     </div>
 
@@ -73,5 +57,3 @@ html, body {
 
 </body>
 </html>
-
-
